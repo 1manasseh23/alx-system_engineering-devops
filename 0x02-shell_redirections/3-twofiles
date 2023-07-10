@@ -1,2 +1,2 @@
 #!/bin/bash
-cat > /etc/passwd | grep hosts
+cat 2> /etc/passwd | grep hosts
