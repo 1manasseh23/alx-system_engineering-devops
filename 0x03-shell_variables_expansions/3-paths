@@ -1,2 +1,2 @@
 #!/bin/bash
-find -mindepth 1 -type d
+echo (('echo $PATH | grep -o ":/" | -l' + 1))
