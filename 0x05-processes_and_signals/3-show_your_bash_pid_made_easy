@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-for pid in /proc / [0-9]*/status; do
-        if grep -q "Name:.*bash" $pid; then
-                echo "$(awk 'pid/{print $2}' $pid) bash"
+process_dir="/proc/[0-9]*"
+
+for pid_dir in $process_dir; do
+	pid=$(basename "$pid_dir")
+	if [[ -f "$pid_dir/cmdline" ]]; then
+		process_name=$(tr '\0' ' ' < "$pid_dir/cmdline" | awk '{print $1}')
+		if [[ "$process_name" == *"bash"* ]]; then
+			echo "$pid $process_name"
+		fi
         fi
 done
