@@ -4,7 +4,6 @@
 pid=$(pgrep -f "7-highlander")
 
 if [ -n "$pid" ]; then
-	echo "Sending SIGTERM signal to process $pid"
 	kill -SIGTERM "$pid"
 else
 	echo "Precess not found"
