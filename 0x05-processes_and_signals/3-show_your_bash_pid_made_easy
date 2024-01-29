@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-for pid in /proc / [0-9]*/status; do
-        if grep -q "Name:.*bash" $pid; then
-                echo "$(awk 'pid/{print $2}' $pid) bash"
-        fi
-done
