@@ -3,7 +3,8 @@
 # Where only the part of the name after the first dash is displayed
 
 for file in *; do
-	if [ -f "$file" ] && [[ "$file" != .* ]]; then
-		echo "${file#*_}"
-	fi
+    if [ -f "$file" ] && [ ! -h "$file" ]; then
+        name_part=$(echo "$file" | cut -d'-' -f2-)
+        echo "$name_part"
+    fi
 done
