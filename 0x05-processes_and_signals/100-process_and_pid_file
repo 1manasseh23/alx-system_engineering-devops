@@ -2,7 +2,7 @@
 # This is a script that Creates the file /var/run/myscript.pid containing its PID, Displays To infinity and beyond indefinitely, Displays I hate the kill command when receiving a SIGTERM signal
 
 cleanup() {
-	echo "Deleting PID file and terminating..."
+	echo "I hate the kill command"
 	rm -f /var/run/myscript.pid
 	exit
 }
@@ -15,14 +15,13 @@ handle_sigterm() {
 	echo "I hate the kill command"
 }
 
-trap 'cleanup' SIGQUIT SIGTERM
-trap 'handle_sigint' SIGINT
-
 sudo touch /var/run/myscript.pid
 echo $$ > /var/run/myscript.pid
 
 while :
 do
 	echo "To infinity and beyond"
+	trap 'cleanup' SIGQUIT SIGTERM
+	trap 'handle_sigint' SIGINT
 	sleep 2
 done
