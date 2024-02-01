@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Get all IP addresses
+
+IPS=$(ip -o addr show scope global | awk '{gsub ("/", " "); print $4}')
+
+for IP in $IPS
+do
+    echo $IP
+done
