@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # script that displays listening ports, That only shows listening sockets, That shows the PID and name of the program to which each socket belongs
 
-echo "Active Internet connections (only servers)"
-echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
-netstat -tlnp 2>/dev/null | awk '$1 == "tcp" {printf "%-10s %-8s %-8s %-24s %-23s %-13s ", $1, $2, $3, $4, $5, $7; system("ps --no-headers -o comm -p "$7)}'
+netstat -tulln | grep LISTEN
 
-netstat -ulnp 2>/dev/null | awk '$1 == "udp" {printf "%-10s %-8s %-8s %-24s %-23s %-13s ", $1, $2, $3, $4, $5, $7; system("ps --no-headers -o comm -p "$7)}'
+echo "TCP Ports:"
+ss -tln | awk '$1 == "LISTEN" {print $4}' | cut -d: -f2
+
+echo "UDP Ports:"
+ss -uln | awk '$1 == "UNCONN" {print $4}' | cut -d: -f2
