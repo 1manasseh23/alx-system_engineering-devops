@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
 # Define the port to listen on
 
-trap "exit 0" SIGINT SIGTERM
-
-PORT=98
-
-nc -l -p $PORT -k | while IFS= read -r line; do
-    echo "$line"
-done
+nc -l 98
