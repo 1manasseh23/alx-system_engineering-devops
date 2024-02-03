@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# script that displays listening ports, That only shows listening sockets, That shows the PID and name of the program to which each socket belongs
+# This is a script that displays listening ports
 
-netstat -tulln | grep LISTEN
-
-echo "TCP Ports:"
-ss -tln | awk '$1 == "LISTEN" {print $4}' | cut -d: -f2
-
-echo "UDP Ports:"
-ss -uln | awk '$1 == "UNCONN" {print $4}' | cut -d: -f2
+sudo netstat -lp
