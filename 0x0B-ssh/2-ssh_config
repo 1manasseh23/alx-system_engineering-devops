@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This is SSH client configuration
+Host remote_server
+    HostName d3c4fa12543d.ae4d45e0.alx-cod.online
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PreferredAuthentications publickey
+    PasswordAuthentication no
