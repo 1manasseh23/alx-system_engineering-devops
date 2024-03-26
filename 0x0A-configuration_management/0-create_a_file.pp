@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# This Puppet, create a file in /tmp
+
 file { '/tmp/school':
   ensure  => file,
   content => 'I love Puppet',
