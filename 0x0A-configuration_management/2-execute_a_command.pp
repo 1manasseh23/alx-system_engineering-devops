@@ -1,4 +1,6 @@
-# 2-execute_a_command.pp
+#!/usr/bin/env bash
+# this to create a manifest that kills a process
+# named killmenow.
 
 exec { 'killmenow':
   command => 'pkill -f killmenow',
