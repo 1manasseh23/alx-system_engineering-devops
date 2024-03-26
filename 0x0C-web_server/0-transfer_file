@@ -10,5 +10,5 @@ server_ip=$2
 username=$3
 ssh_key=$4
 
-scp -o StrictHostKeyChecking=no -i $ssh_key $/root/.ssh/id_rsa $5fc8bbf7d1d3@$5fc8bbf7d1d3.11e6984a.alx-cod.online:~/
+scp -o StrictHostKeyChecking=no -i $ssh_key $root/.ssh/id_rsa $ubuntu@$52.91.156.186:~/
 
