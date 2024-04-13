@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Step 1: Check Nginx status and start it if it's not running
+if ! systemctl is-active nginx; then
+    systemctl start nginx
+fi
+
+# Step 2: Check if Nginx is listening on port 80
+if ! netstat -tuln | grep :80; then
+    # Step 2.1: Check Nginx configuration file
+    if grep -q "listen 80" /etc/nginx/nginx.conf && grep -q "listen [::]:80" /etc/nginx/nginx.conf; then
+        # Step 2.2: Check if there are any firewall rules blocking port 80
+        if ! ufw status | grep -q "80/tcp"; then
+            ufw allow 80/tcp
+        fi
+    else
+        # Step 2.3: Reinstall Nginx
+        apt-get remove nginx
+        apt-get install nginx
+    fi
+fi
