@@ -1,0 +1,4 @@
+#!/bin/bash
+
+systemctl start nginx
+grep -q "listen 80" /etc/nginx/nginx.conf && grep -q "listen [::]:80" /etc/nginx/nginx.conf || (ufw allow 80/tcp; systemctl restart nginx)

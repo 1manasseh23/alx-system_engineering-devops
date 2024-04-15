@@ -1,0 +1,28 @@
+# Connecting to 462832-web-01 ubuntu
+ssh ubuntu@100.27.4.174
+
+# Update server
+sudo apt update
+
+# Installing ufw
+sudo apt install ufw
+
+# Enable ufw
+sudo ufw enable
+
+# Denying incomming port on server
+sudo ufw default deny incoming
+
+# Allowing port on server
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp   # SSH
+sudo ufw allow 443/tcp  # HTTPS SSL    
+sudo ufw allow 80/tcp  # HTTP
+
+# Check status ufw
+sudo ufw status verbose
+
+# Reload ufw firewall
+sudo ufw reload
+
+exit # To exit the serve
