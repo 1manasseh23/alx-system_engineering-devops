@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Check if the argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <password>"
+  exit 1
+fi
+
+# Set the password from the argument
+PASSWORD="$1"
+
+# Set the current date in the format day-month-year
+DATE=$(date +"%d-%m-%Y")
+
+# Generate the MySQL dump
+mysqldump -u root -p"$PASSWORD" --all-databases > backup.sql
+
+# Compress the MySQL dump to a tar.gz archive
+tar -czvf "$DATE.tar.gz" backup.sql
+
+# Remove the uncompressed MySQL dump
+rm backup.sql
+
+echo "Backup completed: $DATE.tar.gz"
