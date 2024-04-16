@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Edit the MySQL configuration file on web-01:
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# Comment out the bind-address parameter to allow
+# bind-address          = 127.0.0.1
+
+# Restart the MySQL service on web-01:
+sudo systemctl restart mysql

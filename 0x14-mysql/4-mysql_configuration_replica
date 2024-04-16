@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Edit the MySQL configuration file on web-02
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# add lines
+server-id = 2
+relay-log = /var/log/mysql/mysql-relay-bin
+log_slave_updates = 1
+read-only = 1
+
+# Restart the MySQL service on web-02:
+sudo systemctl restart mysql
