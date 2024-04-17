@@ -4,10 +4,14 @@
 sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
 # add lines
+[mysqld]
 server-id = 2
-relay-log = /var/log/mysql/mysql-relay-bin
-# log_slave_updates = 1
-read-only = 1
+relay-log = /var/log/mysql/mysql-relay-bin.log
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = tyrell_corp
 
 # Restart the MySQL service on web-02:
 sudo systemctl restart mysql
+sudo mysql # to loing into mysql
+CHANGE MASTER TO MASTER_HOST='web-01', MASTER_USER='replica_user', MASTER_PASSWORD='your_password', MASTER_LOG_FILE='mysql-bin.000009', MASTER_LOG_POS=107;
+START SLAVE;

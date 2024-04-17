@@ -3,8 +3,16 @@
 # Edit the MySQL configuration file on web-01:
 sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 
-# Comment out the bind-address parameter to allow
-# bind-address          = 127.0.0.1
+# Add lines
+[mysqld]
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = tyrell_corp
 
 # Restart the MySQL service on web-01:
 sudo systemctl restart mysql
+sudo mysql # to loing into mysql
+CREATE USER 'replica_user'@'%' IDENTIFIED BY 'your_password'; # Create a user for replication
+GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%'; # Grant permission toreplica_user
+FLUSH PRIVILEGES; # permission to take ifect
+msql> SHOW MASTER STATUS;
