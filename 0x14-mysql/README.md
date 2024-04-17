@@ -29,17 +29,29 @@ Load distribution: You can split the read operations between the 2 servers, redu
 . MySQL primary must be hosted on web-01 - do not use the bind-address, just comment out this parameter
 . Edit the MySQL configuration file on web-01
 * sudo vin /etc/mysql/mysql.conf.d/mysqld.cnf
-* Comment out the bind-address parameter to allow connections from any IP address.
+* [mysqld]
+server-id = 1
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = tyrell_corp
+
 sudo systemctl restart mysql
+sudo mysql
+CREATE USER 'replica_user'@'%' IDENTIFIED BY 'your_password';
+GRANT REPLICATION SLAVE ON *.* TO 'replication_user'@'%';
+FLUSH PRIVILEGES;
+
 
 . Edit Replica Server (web-02)
 * sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
-* Add lines:
+* Add line
+[mysqld]
 server-id = 2
-relay-log = /var/log/mysql/mysql-relay-bin
-log_slave_updates = 1
-read-only = 1
+relay-log = /var/log/mysql/mysql-relay-bin.log
+log_bin = /var/log/mysql/mysql-bin.log
+binlog_do_db = tyrell_corp
+
 
 sudo systemctl restart mysql
-
-
+sudo mysql
+CHANGE MASTER TO MASTER_HOST='web-01', MASTER_USER='replica_user', MASTER_PASSWORD='your_password', MASTER_LOG_FILE='mysql-bin.000009', MASTER_LOG_POS=107;
+START SLAVE;
