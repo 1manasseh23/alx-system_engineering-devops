@@ -1,23 +1,28 @@
 #!/usr/bin/env bash
-# Install Nginx if not already installed
+# Configure your Nginx server so that 
+# /redirect_me is redirecting to another page
 
-sudo apt-get update
-sudo apt-get install -y nginx
+# update the local package and install nginx
+apt-get update -y
+apt-get install nginx -y
 
-# Create a new Nginx configuration file for the redirection
-sudo tee /etc/nginx/sites-available/redirect_me <<EOF
-server {
-    listen 80;
-    server_name _;
+# firewall allow access to nginx service
+ufw allow 'Nginx HTTP'
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
+ufw status #VERBOSE
 
-    # Add other server blocks or configurations as needed
-}
-EOF
+service nginx --full-restart
 
-# Enable the new configuration
-sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
-sudo systemctl reload nginx
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+newString="server_name marviel.com"
+sed -i "s/server_name _/$newString/" /etc/nginx/sites-available/default
+
+# for location
+newLocat="location /redirect_me {\n\
+	return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\
+\t}"
+
+sed -ie "/$newString/a\\\n\t$newLocat" /etc/nginx/sites-available/default
+
+service nginx restart
