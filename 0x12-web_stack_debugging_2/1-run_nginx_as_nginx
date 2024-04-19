@@ -17,6 +17,8 @@ server {
 }
 EOF
 
+sudo sed -i 's/user www-data/user nginx/' /etc/nginx/nginx.conf
+
 # Enable the configuration
 ln -s /etc/nginx/sites-available/my_nginx_config /etc/nginx/sites-enabled/
 service nginx restart
