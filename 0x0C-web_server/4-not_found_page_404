@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>404 Not Found</title>
-</head>
-<body>
-    <h1>Ceci n'est pas une page</h1>
-    <p>Sorry, the requested page could not be found.</p>
-</body>
-</html>
+#!/usr/bin/env bash
+# Configure your Nginx server so that 
+# /redirect_me is redirecting to another page
+
+# update the local package and install nginx
+apt-get update -y
+apt-get install nginx -y
+
+# firewall allow access to nginx service
+ufw allow 'Nginx HTTP'
+
+ufw status #VERBOSE
+
+service nginx --full-restart
+
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+newString="server_name marviel.com"
+sed -i "s/server_name _/$newString/" /etc/nginx/sites-available/default
+
+# for location
+newLocat="location /redirect_me {\n\
+	return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\
+\t}"
+
+sed -ie "/$newString/a\\\n\t$newLocat" /etc/nginx/sites-available/default
+
+# Define the custom 404 page content
+custom_404="Ceci n'est pas une page"
+
+# Create the custom 404 page file
+echo -e "$custom_404" > /var/www/html/404.html
+
+# Use sed to replace the default Nginx configuration for error pages with the custom 404 page
+sed -i 's/^.*error_page 404.*$/\terror_page 404 \/404.html;/' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+service nginx restart
