@@ -7,4 +7,4 @@ if [ $# -ne 1 ]; then
 fi
 
 # Run the whoami command under the specified user
-sudo -u $1 whoami
+sudo -u "$1" whoami
