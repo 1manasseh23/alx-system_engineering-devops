@@ -11,7 +11,7 @@ First line: Employee EMPLOYEE_NAME is done with tasks
 import requests
 from sys import argv
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     if len(argv) > 1:
         user = argv[1]
         url = "https://jsonplaceholder.typicode.com/"
