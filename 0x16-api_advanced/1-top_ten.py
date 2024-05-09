@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """function that queries the Reddit API and prints the titles
-of the first 10 hot posts listed for a given subreddit."""
+of the first 10 hot posts listed for a given subreddit.
+"""
 
 
 def top_ten(subreddit):
@@ -22,3 +23,4 @@ def top_ten(subreddit):
             print("None")
     except Exception:
         print("None")
+
