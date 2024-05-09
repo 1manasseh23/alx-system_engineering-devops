@@ -1,4 +1,5 @@
 # Ensure the necessary file or directory exists
+
 file { '/path/to/missing/file':
   ensure => file,
   owner  => 'www-data',
