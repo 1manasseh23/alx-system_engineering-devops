@@ -8,11 +8,9 @@ def top_ten(subreddit):
     10 hot posts listed for a given subreddit.
     If not a valid subreddit, prints None.
     """
-    # Set a custom User-Agent to avoid rate limiting
     headers = {'User-Agent': 'MyApp/0.0.1'}
 
     try:
-        # Make a GET request to the Reddit API for the given subreddit
         response = requests.get(
                 f'https://www.reddit.com/r/{subreddit}/hot.json',
                 headers=headers)
