@@ -37,4 +37,3 @@ def recurse(subreddit, hot_list=None, after=None):
                 return None
     except prawcore.exceptions.ResponseException as e:
         return None
-
