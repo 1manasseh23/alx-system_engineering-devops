@@ -1,19 +1,14 @@
 #!/usr/bin/python3
-"""
-This a function that queries the Reddit API and prints the
+"""This a function that queries the Reddit API and prints the
 titles of the first 10 hot posts listed for a
-given subreddit
-"""
+given subreddit"""
+
 import praw
 import prawcore
 
 
 def recurse(subreddit, hot_list=None, after=None):
-    """
-    Queries the Reddit API and prints the titles of the first
-    10 hot posts listed for a given subreddit.
-    If not a valid subreddit, prints None
-    """
+    """Queries the Reddit API and prints the titles of the first"""
     if hot_list is None:
         hot_list = []
     reddit = praw.Reddit(
