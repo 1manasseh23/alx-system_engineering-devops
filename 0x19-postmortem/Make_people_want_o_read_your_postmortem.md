@@ -30,3 +30,5 @@ Document and communicate incident response procedures to all relevant teams.
 Add humor: Include light-hearted anecdotes or jokes to make the postmortem more engaging.
 Pretty Diagram: Create a visually appealing diagram illustrating the timeline of the incident and the resolution process.
 Engaging Language: Use language that is clear, concise, and engaging to maintain the reader's interest throughout the postmortem.
+
+https://medium.com/@cletavivan/make-people-want-to-read-your-postmortem-e0c252a727c1
