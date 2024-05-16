@@ -12,8 +12,7 @@ file { '/etc/nginx/nginx.conf':
   ",
 }
 
-#  The exec resource is added to execute a command that echoes
-# the specific notice message you provided
+#  The exec resource is added to execute a command that echoes the specific notice message you provided
 exec { 'fix--for-nginx':
   command => 'echo "Notice: /Stage[main]/Main/Exec[fix--for-nginx]/returns: executed successfully"',
   path    => '/bin',
