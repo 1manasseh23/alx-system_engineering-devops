@@ -1,21 +1,16 @@
-# Increase the maximum request size allowed by Nginx
-file { '/etc/nginx/nginx.conf':
-  ensure  => file,
-  content => "
-    http {
-        # Increase the maximum number of open files
-        worker_rlimit_nofile 4096;
-
-        # Increase the maximum request body size
-        client_max_body_size 8m;
-    }
-  ",
+# Increase the ULIMIT of nginx default
+exec { 'fix--for-nginx':
+        # Increase the ULIMIT
+        command => '/bin/sed -i "s/15/4096/" /etc/default/nginx',
+        # Specify the path to nginx file
+        path    => '/usr/local/bin/:/bin/',
 }
 
-#  The exec resource is added to execute a command that echoes the specific notice message you provided
-exec { 'fix--for-nginx':
-  command => 'echo "Notice: /Stage[main]/Main/Exec[fix--for-nginx]/returns: executed successfully"',
-  path    => '/bin',
-  logoutput => true,
+# Restart nginx
+exec { 'nginx-restart':
+        # Restart nginx service
+        command => '/etc/init.d/nginx restart',
+        # the path init to restart
+        path    => '/etc/init.d/',
 }
 
