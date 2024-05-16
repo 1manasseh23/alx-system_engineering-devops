@@ -19,10 +19,3 @@ exec { 'fix--for-nginx':
   logoutput => true,
 }
 
-# The require attribute in the service resource includes both the file and exec resources, ensuring that the exec resource is executed
-service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => [File['/etc/nginx/nginx.conf'], Exec['fix--for-nginx']],
-}
-
