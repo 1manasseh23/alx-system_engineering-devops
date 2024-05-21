@@ -1,20 +1,27 @@
+# This  is rout airbnb-dynamic/number_odd_or_even on port 5001
+
 server {
     listen 80;
-    listen [::]:80;
+    server_name 100.27.4.174;
+    add_header X-serverd-By 462832-web-01;
 
-    server_name _;
-
-    location /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000;
+    location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
+        proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
-    location /airbnb-dynamic/number_odd_or_even/ {
-        proxy_pass http://127.0.0.1:5001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
+    # location / {
+    #    proxy_pass http://127.0.0.1:5000;
+    #    proxy_set_header Host $host;
+    #    proxy_set_header X-Real-IP $remote_addr;
+    #    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #}
+
+    error_page 404 /404.html;
+       location /404 {
+               root var/www/html;
+               internal;
+       }
 }
