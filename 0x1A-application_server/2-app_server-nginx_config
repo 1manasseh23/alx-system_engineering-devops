@@ -1,7 +1,10 @@
+# This is a config file ti rout  airbnb-onepage on port  5000
+
 server {
     listen 80;
     listen [::]:80;
 
+    # This the ip for my domain name
     server_name 100.27.4.174;
 
     add_header X-serverd-By 462832-web-01;
